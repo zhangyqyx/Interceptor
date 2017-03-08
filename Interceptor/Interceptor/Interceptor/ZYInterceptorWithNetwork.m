@@ -49,6 +49,9 @@
         
         [UIViewController aspect_hookSelector:NSSelectorFromString(actionName) withOptions:optionType usingBlock:^(id<AspectInfo> aspectInfo, BOOL animated){
             UIViewController * vc = [aspectInfo instance];
+            if ([vc isKindOfClass:NSClassFromString(@"UIInputWindowController")] || [vc isKindOfClass:NSClassFromString(@"UIAlertController")] || [vc isKindOfClass:NSClassFromString(@"UIInputViewController")] || [vc isKindOfClass:NSClassFromString(@"UIRemoteInputViewController")] || [vc isKindOfClass:NSClassFromString(@"UIApplicationRotationFollowingController")]) {
+                return ;
+            }
             if (!vc.isDisabledInterceptor) {
                 [self action:animated viewController:vc];
             }
